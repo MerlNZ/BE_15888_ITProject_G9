@@ -30,7 +30,7 @@ namespace Online_Learning_App.Infrastructure
         public DbSet<Certificate> Certificates { get; set; } //**NewlyAdded for Rewards
         public DbSet<KindnessJournal> KindnessJournals { get; set; } //**NewlyAdded for Student Journal
 
-
+       
         public DbSet<ClassGroupSubjectGrade> ClassGroupSubjectGrade { get; set; }
         public DbSet<Admin> Admin { get; set; }
         public DbSet<ClassGroupSubject> ClassGroupSubjectsInformation
@@ -168,8 +168,9 @@ namespace Online_Learning_App.Infrastructure
             //modelBuilder.Entity<KindnessJournal>()
             //    .ToTable("KindnessJournal");
             modelBuilder.Entity<KindnessJournal>()
+                 .ToTable("KindnessJournal")
                  .HasKey(kj => kj.JournalId);
-                //.ToTable("KindnessJournal"); 
+                 
             
         }
 

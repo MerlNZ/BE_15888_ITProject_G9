@@ -109,6 +109,55 @@ namespace Online_Learning_App_Presentation.Controllers
             return Ok(submissions);
         }
 
+        [HttpGet("IsForReview")]
+        public async Task<IActionResult> IsForReview()
+        {
+
+            //var s1 = await _context.Submissions
+            //  .Where(s => s.IsReviewed == false)
+            //  .ToListAsync();
+
+            //var submissions = await _context.Submissions
+            //  .Include(s => s.Student)
+            //  .ThenInclude(st => st.User) // Assuming Student has navigation to User
+            //  .Include(s => s.Activity)
+            //  .Where(s => !s.IsReviewed)
+            //  .Select(s => new SubmissionReviewDto
+            //  {
+            //      SubmissionId = s.SubmissionId,
+            //      ActivityName = s.Activity.Title,
+            //      StudentName = s.Student.User.UserName, // or FirstName + LastName if available
+            //      Feedback = s.Feedback,
+            //      Grade = s.Grade,
+            //      IsReviewed = s.IsReviewed
+            //  })
+            //    .ToListAsync();
+
+            ////var finalresult= result.Where(a=> a.PdfUrl==null).ToList();
+            //return Ok(submissions);
+
+               var submissions = await _context.Submissions
+               .Include(s => s.Student)
+                   .ThenInclude(st => st.User)
+               .Include(s => s.Activity)
+               .Where(s => !s.IsReviewed)
+               .Select(s => new SubmissionReviewDto
+               {
+                   SubmissionId = s.SubmissionId,
+                   ActivityId = s.ActivityId,
+                   StudentId = s.StudentId,
+                   ActivityName = s.Activity.Title,
+                   StudentName = s.Student.User.UserName,
+                   Feedback = s.Feedback,
+                   Grade = s.Grade,
+                   IsReviewed = s.IsReviewed
+               })
+               .ToListAsync();
+
+              return Ok(submissions);
+
+        }
+
 
         [HttpPut("resubmit")]
         public async Task<IActionResult> ResubmitActivity([FromBody] SubmissionDto dto)

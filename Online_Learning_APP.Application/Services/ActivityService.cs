@@ -190,12 +190,13 @@ namespace Online_Learning_App.Application.Services
                 StudentId = createActivityDto.StudentId,
                 ActivityId = createActivityDto.ActivityId,
                 Score = createActivityDto.Grade.Value,
+
             };
             var finalGrade = new FinalGradeDto
             {
                 //ActivityGradeId = Guid.NewGuid(),
                 StudentId = createActivityDto.StudentId,
-              SubjectId = activity.SubjectId
+                SubjectId = activity.SubjectId
             };
             //  var activitygradeId=_gradeService.get
             await _gradeService.AssignGradeToActivityTeacher(activityGrade);
@@ -211,14 +212,27 @@ namespace Online_Learning_App.Application.Services
             var existingSubmission = await _dbContext.Submissions
        .FirstOrDefaultAsync(s => s.StudentId == createActivityDto.StudentId && s.ActivityId == createActivityDto.ActivityId);
 
+            if (createActivityDto.Grade.HasValue && !string.IsNullOrEmpty(createActivityDto.Feedback))
+            {
+                existingSubmission.IsReviewed = true;
+                _dbContext.Submissions.Update(existingSubmission);
+            }
+
             if (existingSubmission != null)
             {
+
                 //If submission exists, update it instead of creating a new one
                 //existingSubmission.PdfUrl = createActivityDto.pd ?? "";
                 existingSubmission.SubmissionDate = DateTime.UtcNow;
                 //   existingSubmission.StudentComment = dto.StudentComment ?? "";
                 existingSubmission.Grade = createActivityDto.Grade.Value;
                 existingSubmission.Feedback= createActivityDto.Feedback;
+
+                //if (existingSubmission.Grade.HasValue && string.IsNullOrEmpty(existingSubmission.Feedback))
+                //{
+                //    existingSubmission.IsReviewed = true;
+                //}
+
                 _dbContext.Submissions.Update(existingSubmission);
 
 

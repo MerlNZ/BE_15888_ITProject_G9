@@ -29,6 +29,7 @@ namespace Online_Learning_App_Presentation.Controllers
         {
             double finalGrade = await _gradeService.CalculateFinalGradeForActivity(finalGradeDto);
             return Ok(new { FinalScore = finalGrade });
+
         }
 
         [HttpPost("release-final")]
@@ -42,7 +43,10 @@ namespace Online_Learning_App_Presentation.Controllers
         {
             var succ = await _gradeService.CalculateFinalGradesForActivity(studentIds);
             return Ok(succ);
+
+
         }
+
 
         [HttpGet("upcoming/{studentId}")]
         public async Task<IActionResult> GetUpcomingActivities(Guid studentId)

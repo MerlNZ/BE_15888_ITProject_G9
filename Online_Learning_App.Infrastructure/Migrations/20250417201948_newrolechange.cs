@@ -14,15 +14,15 @@ namespace Online_Learning_App.Infrastructure.Migrations
                 name: "FK_Submissions_Activities_ActivityId",
                 table: "Submissions");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Submissions_StudentId",
-                table: "Submissions");
+            //migrationBuilder.DropIndex(
+            //    name: "IX_Submissions_StudentId",
+            //    table: "Submissions");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Submissions_StudentId_ActivityId",
-                table: "Submissions",
-                columns: new[] { "StudentId", "ActivityId" },
-                unique: true);
+            //migrationBuilder.CreateIndex(
+            //    name: "IX_Submissions_StudentId_ActivityId",
+            //    table: "Submissions",
+            //    columns: new[] { "StudentId", "ActivityId" },
+            //    unique: true);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Submissions_Activities_ActivityId",
