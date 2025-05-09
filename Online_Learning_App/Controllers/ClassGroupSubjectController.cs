@@ -19,13 +19,13 @@ namespace Online_Learning_App_Presentation.Controllers
 
         // Create a ClassGroupSubject
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ClassGroupSubjectDto classGroupSubject)
+        public async Task<IActionResult> Create([FromBody] CreateClassGroupSubjectDto classGroupSubject)
         {
             if (classGroupSubject == null)
                 return BadRequest("Invalid data.");
 
             var createdClassGroupSubject = await _classGroupSubjectService.AddClassGroupSubjectAsync(classGroupSubject);
-            return CreatedAtAction(nameof(GetById), new { id = createdClassGroupSubject.ClassGroupSubjectId }, createdClassGroupSubject);
+            return CreatedAtAction(nameof(GetById), new { id = createdClassGroupSubject }, createdClassGroupSubject);
         }
 
         // Get a ClassGroupSubject by ID

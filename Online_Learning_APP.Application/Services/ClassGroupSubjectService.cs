@@ -23,7 +23,7 @@ namespace Online_Learning_APP.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<ClassGroupSubjectDto> AddClassGroupSubjectAsync(ClassGroupSubjectDto classGroupSubject)
+        public async Task<CreateClassGroupSubjectDto> AddClassGroupSubjectAsync(CreateClassGroupSubjectDto classGroupSubject)
         {
             var activity = _mapper.Map<ClassGroupSubject>(classGroupSubject);
             activity.ClassGroupSubjectId = Guid.NewGuid(); // Generate a new ID
@@ -31,7 +31,7 @@ namespace Online_Learning_APP.Application.Services
             activity.ClassGroupId = classGroupSubject.ClassGroupId;
             await _classGroupSubjectRepository.AddAsync(activity);
             //  await _classGroupSubjectRepository.AddAsync(classGroupSubject);
-            return _mapper.Map<ClassGroupSubjectDto>(activity);
+            return _mapper.Map<CreateClassGroupSubjectDto>(activity);
         }
 
         public async Task<ClassGroupSubjectDto> GetClassGroupSubjectByIdAsync(Guid id)

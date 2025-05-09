@@ -10,7 +10,7 @@ namespace Online_Learning_APP.Application.Interfaces
 {
     public interface IClassGroupSubjectService
     {
-        Task<ClassGroupSubjectDto> AddClassGroupSubjectAsync(ClassGroupSubjectDto classGroupSubject);
+        Task<CreateClassGroupSubjectDto> AddClassGroupSubjectAsync(CreateClassGroupSubjectDto classGroupSubject);
         Task<ClassGroupSubjectDto> GetClassGroupSubjectByIdAsync(Guid id);
         Task<IEnumerable<ClassGroupSubjectDto>> GetAllClassGroupSubjectsAsync();
         Task<IEnumerable<ClassGroupSubject>> GetByClassGroupIdAsync(Guid classGroupId);

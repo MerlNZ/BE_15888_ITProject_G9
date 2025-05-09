@@ -72,7 +72,8 @@ namespace AuthenticationApp.Application.Services
             // Check if the user already exists as a Student or Teacher
             // **Detach the user to prevent EF tracking issues**
             _context.Entry(user).State = EntityState.Detached;
-            if (role.Name == "Student")
+            var rolecheck = role.Name.ToLower();
+            if (rolecheck == "student")
             {
                 // Check if the student already exists
                 var existingStudent = await _context.Students
@@ -97,7 +98,7 @@ namespace AuthenticationApp.Application.Services
 
                 }
             }
-           else if (role.Name == "Teacher")
+           else if (rolecheck == "teacher")
             {
                 // Check if the teacher already exists
                 var existingTeacher = await _context.Teachers
@@ -115,7 +116,7 @@ namespace AuthenticationApp.Application.Services
                     _context.Teachers.Add(teacher);  // Add to the Teachers table
                 }
             }
-            else if (role.Name == "Admin")
+            else if (rolecheck == "Admin"|| rolecheck == "admin")
             {
                 // Check if the teacher already exists
                 var existingTeacher = await _context.Teachers
