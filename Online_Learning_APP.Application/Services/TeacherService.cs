@@ -52,6 +52,7 @@ namespace Online_Learning_APP.Application.Services
                         .Select(u => new StudentProfileDto
                         {
                             UserId = u.Id,
+                            UserName = u.UserName,
                             FirstName = u.FirstName,
                             LastName = u.LastName,
                             Email = u.Email

@@ -9,6 +9,8 @@ namespace Online_Learning_APP.Application.DTO
     public class StudentProfileDto
     {
         public Guid UserId { get; set; }
+        public string UserName { get; set; } // adding for summary submission retreival
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

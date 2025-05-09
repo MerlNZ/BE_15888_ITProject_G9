@@ -173,6 +173,102 @@ namespace Online_Learning_App_Presentation.Controllers
 
             return Ok(new { studentId = student.Id });
         }
+
+        [HttpGet("profile/{studentId}")]
+        public async Task<ActionResult<StudentProfileDto>> GetStudentProfile(Guid studentId)
+        {
+            var student = await _context.Students
+                .Include(s => s.User)
+                .Where(s => s.Id == studentId)
+                .Select(s => new StudentProfileDto
+                {
+                    UserId = s.User.Id,
+                    FirstName = s.User.FirstName,
+                    LastName = s.User.LastName,
+                    Email = s.User.Email
+                })
+                .FirstOrDefaultAsync();
+
+            if (student == null)
+                return NotFound("Student not found");
+
+            return Ok(student);
+        }
+
+        //[HttpGet("student/{studentId}/submission-summary")]
+        //public async Task<ActionResult<StudentSubmissionSummaryDto>> GetStudentSubmissionSummary(Guid studentId)
+        //{
+        //    var student = await _context.Students
+        //        .FirstOrDefaultAsync(s => s.Id == studentId);
+
+        //    if (student == null)
+        //        return NotFound("Student not found");
+
+        //    // Get all activities in the student's class group
+        //    var activityIds = await _context.Activities
+        //        .Where(a => a.ClassGroupId == student.ClassGroupId)
+        //        .Select(a => a.ActivityId)
+        //        .ToListAsync();
+
+        //    var totalActivities = activityIds.Count;
+
+        //    // Get student's submissions related to those activities
+        //    var submissions = await _context.Submissions
+        //        .Where(s => s.StudentId == studentId && activityIds.Contains(s.ActivityId))
+        //        .ToListAsync();
+
+        //    int totalSubmissions = submissions.Count;
+        //    int graded = submissions.Count(s => s.Grade > 0);
+        //    int ungraded = submissions.Count(s => s.Grade == null || s.Grade <= 0);
+
+        //    return Ok(new StudentSubmissionSummaryDto
+        //    {
+        //        TotalSubmissions = totalSubmissions,
+        //        UngradedSubmissions = ungraded,
+        //        GradedSubmissions = graded,
+        //        TotalActivities = totalActivities
+        //    });
+        //}
+
+        [HttpGet("student/summary/{username}")]
+        public async Task<IActionResult> GetStudentSubmissionSummary(string username)
+        {
+            var student = await _context.Students
+                .Include(s => s.ClassGroup)
+                .FirstOrDefaultAsync(s => s.UserName == username);
+
+            if (student == null)
+            {
+                return NotFound("Student not found.");
+            }
+
+            var classGroupId = student.ClassGroupId;
+
+            // Get all activities assigned to this class group
+            var totalActivities = await _context.Activities
+                .Where(a => a.ClassGroupId == classGroupId)
+                .CountAsync();
+
+            // Get all submissions made by the student
+            var submissions = await _context.Submissions
+                .Where(s => s.StudentId == student.Id)
+                .ToListAsync();
+
+            var totalSubmissions = submissions.Count;
+            var gradedSubmissions = submissions.Count(s => s.Grade > 0);
+            var ungradedSubmissions = totalSubmissions - gradedSubmissions;
+
+            var result = new
+            {
+                TotalActivities = totalActivities,
+                TotalSubmissions = totalSubmissions,
+                GradedSubmissions = gradedSubmissions,
+                UngradedSubmissions = ungradedSubmissions
+            };
+
+            return Ok(result);
+        }
+
     }
 
 }
