@@ -13,6 +13,7 @@ namespace Online_Learning_APP.Application.DTO
         public string Description { get; set; }
         public DateTime DueDate { get; set; }
         public string PdfUrl { get; set; }
+        public string teacherPdfUrl { get; set; }
 
         // Submission Info
         public bool IsSubmitted { get; set; }
