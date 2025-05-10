@@ -91,7 +91,8 @@ namespace Online_Learning_App.Application.Services
             activity.ClassGroupSubjectId = classgroupsubjectid;
             var classgrpactivity = Guid.NewGuid();
             //await _classGroupSubjectRepository.AddAsync(classGroupSubject);
-            activity.TeacherId = createActivityDto.TeacherId;
+            var teacherIdfrmtable = _dbContext.Teachers.Where(a => a.UserId == createActivityDto.TeacherId).Select(a=>a.Id).FirstOrDefault();
+           activity.TeacherId = teacherIdfrmtable;
 
 
 

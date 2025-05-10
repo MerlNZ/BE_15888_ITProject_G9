@@ -46,7 +46,7 @@ namespace Online_Learning_App.Controllers
                 return Unauthorized(new { message = "Invalid credentials", role = isAuthenticated.Role });
             }
 
-            return Ok(new { message = "Login successful", Rolename = isAuthenticated.Role,Token= isAuthenticated.Token });
+            return Ok(new { message = "Login successful", Rolename = isAuthenticated.Role,Token= isAuthenticated.Token,UserId= isAuthenticated.UserId });
         }
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto dto)

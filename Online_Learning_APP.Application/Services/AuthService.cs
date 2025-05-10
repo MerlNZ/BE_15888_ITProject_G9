@@ -120,7 +120,8 @@ namespace Application.Services
             return new TokenDTO
             {
                 Token = tokenString,
-                Role = role
+                Role = role,
+                UserId=user.Id.ToString()
             };
         }
 
