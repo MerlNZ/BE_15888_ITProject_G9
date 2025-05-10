@@ -20,7 +20,7 @@ namespace Online_Learning_App_Presentation.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> AddEntry([FromBody] KindnessJournalDto dto)
         {
-            var journal = new KindnessJournal
+            var journal = new Journals
             {
                 StudentId = dto.StudentId,
                 EntryText = dto.EntryText,
@@ -28,7 +28,7 @@ namespace Online_Learning_App_Presentation.Controllers
                 EntryDate = DateTime.Now
             };
 
-            _context.KindnessJournal.Add(journal);
+            _context.Journals.Add(journal);
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Journal entry saved!" });
@@ -39,7 +39,7 @@ namespace Online_Learning_App_Presentation.Controllers
         [HttpGet("student/{studentId}")]
         public async Task<IActionResult> GetByStudent(Guid studentId)
         {
-            var entries = await _context.KindnessJournal
+            var entries = await _context.Journals
                 .Where(j => j.StudentId == studentId)
                 .OrderByDescending(j => j.EntryDate)
                 .ToListAsync();
@@ -51,7 +51,7 @@ namespace Online_Learning_App_Presentation.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAllJournals()
         {
-            var journals = await _context.KindnessJournal
+            var journals = await _context.Journals
                 .Include(j => j.Student)
                 .OrderByDescending(j => j.EntryDate)
                 .Select(j => new

@@ -17,6 +17,8 @@ namespace Online_Learning_App.Infrastructure
         public DbSet<Student> Students { get; set; }
         public DbSet<PrintableResource> PrintableResources { get; set; }
         public DbSet<KindnessJournal> KindnessJournal { get; set; }
+        public DbSet<Journals> Journals { get; set; }
+        
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Submission> Submissions { get; set; }
         public DbSet<ClassGroup> ClassGroups { get; set; } // **Newly Added**
@@ -170,8 +172,11 @@ namespace Online_Learning_App.Infrastructure
             modelBuilder.Entity<KindnessJournal>()
                  .ToTable("KindnessJournal")
                  .HasKey(kj => kj.JournalId);
-                 
-            
+            //modelBuilder.Entity<KindnessJournal>()
+            //    .ToTable("KindnessJournal")
+            //    .HasKey(kj => kj.JournalId);
+
+
         }
 
     }
