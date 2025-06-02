@@ -107,32 +107,32 @@ namespace Online_Learning_App.Infrastructure.Migrations
                     b.ToTable("Activities", (string)null);
                 });
 
-            modelBuilder.Entity("KindnessJournal", b =>
-                {
-                    b.Property<Guid>("JournalId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+            //modelBuilder.Entity("KindnessJournal", b =>
+            //    {
+            //        b.Property<Guid>("JournalId")
+            //            .ValueGeneratedOnAdd()
+            //            .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Emoji")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            //        b.Property<string>("Emoji")
+            //            .IsRequired()
+            //            .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EntryDate")
-                        .HasColumnType("datetime2");
+            //        b.Property<DateTime>("EntryDate")
+            //            .HasColumnType("datetime2");
 
-                    b.Property<string>("EntryText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            //        b.Property<string>("EntryText")
+            //            .IsRequired()
+            //            .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
+            //        b.Property<Guid>("StudentId")
+            //            .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("JournalId");
+            //        b.HasKey("JournalId");
 
-                    b.HasIndex("StudentId");
+            //        b.HasIndex("StudentId");
 
-                    b.ToTable("KindnessJournals");
-                });
+            //        b.ToTable("KindnessJournals");
+            //    });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
@@ -844,16 +844,16 @@ namespace Online_Learning_App.Infrastructure.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("KindnessJournal", b =>
-                {
-                    b.HasOne("Online_Learning_App.Domain.Entities.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            //modelBuilder.Entity("KindnessJournal", b =>
+            //    {
+            //        b.HasOne("Online_Learning_App.Domain.Entities.Student", "Student")
+            //            .WithMany()
+            //            .HasForeignKey("StudentId")
+            //            .OnDelete(DeleteBehavior.Cascade)
+            //            .IsRequired();
 
-                    b.Navigation("Student");
-                });
+            //        b.Navigation("Student");
+            //    });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {

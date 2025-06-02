@@ -236,6 +236,7 @@ builder.Services.AddMediatR(cfg =>
 
 
 builder.Services.AddEndpointsApiExplorer();
+
 //builder.Services.AddSwaggerGen();
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 builder.Services.AddHostedService<FinalGradeBatchWorker>();

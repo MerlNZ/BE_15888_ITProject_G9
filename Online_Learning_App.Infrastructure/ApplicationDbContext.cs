@@ -16,7 +16,7 @@ namespace Online_Learning_App.Infrastructure
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<PrintableResource> PrintableResources { get; set; }
-        public DbSet<KindnessJournal> KindnessJournal { get; set; }
+        //public DbSet<KindnessJournal> KindnessJournal { get; set; }
         public DbSet<Journals> Journals { get; set; }
         
         public DbSet<Activity> Activities { get; set; }
@@ -30,7 +30,7 @@ namespace Online_Learning_App.Infrastructure
         public DbSet<ActivityGrade> ActivityGrade { get; set; }
         public DbSet<ClassGroupSubject> ClassGroupSubject { get; set; }
         public DbSet<Certificate> Certificates { get; set; } //**NewlyAdded for Rewards
-        public DbSet<KindnessJournal> KindnessJournals { get; set; } //**NewlyAdded for Student Journal
+      //  public DbSet<KindnessJournal> KindnessJournals { get; set; } //**NewlyAdded for Student Journal
 
        
         public DbSet<ClassGroupSubjectGrade> ClassGroupSubjectGrade { get; set; }
@@ -169,12 +169,12 @@ namespace Online_Learning_App.Infrastructure
 
             //modelBuilder.Entity<KindnessJournal>()
             //    .ToTable("KindnessJournal");
-            modelBuilder.Entity<KindnessJournal>()
-                 .ToTable("KindnessJournal")
-                 .HasKey(kj => kj.JournalId);
             //modelBuilder.Entity<KindnessJournal>()
-            //    .ToTable("KindnessJournal")
-            //    .HasKey(kj => kj.JournalId);
+            //     .ToTable("Journal")
+            //     .HasKey(kj => kj.JournalId);
+            ////modelBuilder.Entity<KindnessJournal>()
+            ////    .ToTable("KindnessJournal")
+            ////    .HasKey(kj => kj.JournalId);
 
 
         }

@@ -90,7 +90,7 @@ namespace Online_Learning_App.Application.Services
             activity.WeightagePercent = createActivityDto.WeightagePercent;
             activity.ClassGroupSubjectId = classgroupsubjectid;
             var classgrpactivity = Guid.NewGuid();
-            //await _classGroupSubjectRepository.AddAsync(classGroupSubject);
+    
             var teacherIdfrmtable = _dbContext.Teachers.Where(a => a.UserId == createActivityDto.TeacherId).Select(a=>a.Id).FirstOrDefault();
            activity.TeacherId = teacherIdfrmtable;
 
@@ -102,13 +102,13 @@ namespace Online_Learning_App.Application.Services
                 ClassGroupSubjectId = classgroupsubjectid,
                 ActivityId = activity.ActivityId,
             };
-            //   var classGroups = _dbContext.Students.Where(a=>a.ClassGroupId== createActivityDto.ClassGroupId);
+      
             var allClassGroupIds = await _dbContext.Students.Where(a => a.ClassGroupId == createActivityDto.ClassGroupId)
               .Select(s => s.ClassGroupId)
-         // .Distinct()
+
             .ToListAsync();
 
-            // await _classGroupSubjectActivityRepository.CreateAsync(classGroupSubjectActivity);
+
             await _activityRepository.AddAsync(activity);
             await _classGroupSubjectActivityRepository.CreateAsync(classGroupSubjectActivity);
 
@@ -116,9 +116,7 @@ namespace Online_Learning_App.Application.Services
             List<Guid?> targetClassGroupIds = new List<Guid?> { createActivityDto.ClassGroupId };
             if (createActivityDto.ClassGroupId == null)
             {
-                // Handle the case where ClassGroupId is not provided in DTO if needed
-                // For example, you might want to throw an error or process all groups.
-                // For this example, let's assume you process all if null.
+
                 targetClassGroupIds = allClassGroupIds;
             }
 
@@ -141,7 +139,7 @@ namespace Online_Learning_App.Application.Services
                       //  fee
                     };
 
-                  //  await _classgroupsubjectstudentActivityrepository.AddAsync(classGroupSubjectStudentActivityC);
+              
                     await _mediator.Send(new CreateActivityCommand
                     {
                         ClassGroupSubjectStudentActivityId = classgrpactivityc,
@@ -150,25 +148,12 @@ namespace Online_Learning_App.Application.Services
                         StudentId = student.Id
                     });
 
-                   // await _notificationService.NotifyStudentAsync(student.Id, $"New activity posted: {activity.Title}");
+  
                 }
 
 
-                //var classGroupSubjectStudentActivity = new ClassGroupSubjectStudentActivity
-                //{
-                //    ClassGroupSubjectStudentActivityId = classgrpactivity,
-                //    ClassGroupSubjectId = classgroupsubjectid,
-                //    ActivityId = activity.ActivityId,
-                //    StudentId = new Guid("845DB027-2D1D-46D5-5634-08DD65188216")
-                //    // StudentId =activity.StudentId.Value
-                //};
-                //await _classgroupsubjectstudentActivityrepository.AddAsync(classGroupSubjectStudentActivity);
-            
             }
-         //   var updatedActivities = await _mediator.Send(new GetAllActivitiesQuery());
 
-        
-         //   await _hubContext.Clients.All.SendAsync("ReceiveActivitiesList", updatedActivities);
             return _mapper.Map<ActivityDto>(activity);
         }
     
@@ -195,19 +180,13 @@ namespace Online_Learning_App.Application.Services
             };
             var finalGrade = new FinalGradeDto
             {
-                //ActivityGradeId = Guid.NewGuid(),
+              
                 StudentId = createActivityDto.StudentId,
                 SubjectId = activity.SubjectId
             };
-            //  var activitygradeId=_gradeService.get
+   
             await _gradeService.AssignGradeToActivityTeacher(activityGrade);
-            //var activityGradeObject= new ActivityGradeDto
-            //{
-
-            //    StudentId = activityGrade.StudentId,
-            //    ActivityId = createActivityDto.ActivityId,
-            //    Score = createActivityDto.Grade.Value
-            //};
+           
 
            var activityFeedback = await _gradeService.CalculateFinalGrade(finalGrade);
             var existingSubmission = await _dbContext.Submissions
@@ -221,18 +200,11 @@ namespace Online_Learning_App.Application.Services
 
             if (existingSubmission != null)
             {
-
-                //If submission exists, update it instead of creating a new one
-                //existingSubmission.PdfUrl = createActivityDto.pd ?? "";
+               
                 existingSubmission.SubmissionDate = DateTime.UtcNow;
-                //   existingSubmission.StudentComment = dto.StudentComment ?? "";
                 existingSubmission.Grade = createActivityDto.Grade.Value;
                 existingSubmission.Feedback= createActivityDto.Feedback;
-
-                //if (existingSubmission.Grade.HasValue && string.IsNullOrEmpty(existingSubmission.Feedback))
-                //{
-                //    existingSubmission.IsReviewed = true;
-                //}
+                           
 
                 _dbContext.Submissions.Update(existingSubmission);
 
@@ -240,30 +212,13 @@ namespace Online_Learning_App.Application.Services
             }
           
             var classGroupSubjectStudentActivityC = await _classgroupsubjectstudentActivityrepository.GetActivitySubjectStudentByIdAsync(createActivityDto.ActivityId, createActivityDto.StudentId);
-            // classGroupSubjectStudentActivityC.
-           // classGroupSubjectStudentActivityC.SubmissionId = su;
+
             classGroupSubjectStudentActivityC.Feedback = createActivityDto.Feedback;
-            // classGroupSubjectStudentActivityC.Gr = createActivityDto.Feedback;
+           
             await _classgroupsubjectstudentActivityrepository.UpdateAsync(classGroupSubjectStudentActivityC);
-            //var submission = new Submission
-            //{
-            //    SubmissionId = Guid.NewGuid(),
-            //    ActivityId = createActivityDto.ActivityId,
-            //    StudentId = createActivityDto.StudentId,
-            //   // PdfUrl = createActivityDto.p,
-            //    SubmissionDate = DateTime.UtcNow,
-            //    Feedback = "",
-            //    Grade = createActivityDto.Grade.Value,
-            //  //  StudentComment = dto.StudentComment
-            //};
-
-
-            //_context.Submissions.Update(submission);
-          //  _context.Submissions.Add(submission);
-            //  _classgroupsubjectstudentActivityrepository.UpdateAsync()
-            //await _gradeService.AssignGradeToActivity(activityGradeObject);
+            
             await _activityRepository.UpdateAsync(activity);
-         //   await _classGroupSubjectActivityRepository.CreateAsync(classGroupSubjectActivity);
+        
             return _mapper.Map<ActivityDto>(activity);
         }
         public async Task<ActivityDto> GetActivityByIdAsync(Guid activityId)

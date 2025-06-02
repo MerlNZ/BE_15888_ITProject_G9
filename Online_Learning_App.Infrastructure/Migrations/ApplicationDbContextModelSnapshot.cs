@@ -596,33 +596,6 @@ namespace Online_Learning_App.Infrastructure.Migrations
                     b.ToTable("Journals");
                 });
 
-            modelBuilder.Entity("Online_Learning_App.Domain.Entities.KindnessJournal", b =>
-                {
-                    b.Property<Guid>("JournalId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Emoji")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("EntryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EntryText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("JournalId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("KindnessJournal", (string)null);
-                });
-
             modelBuilder.Entity("Online_Learning_App.Domain.Entities.PrintableResource", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1138,17 +1111,6 @@ namespace Online_Learning_App.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Online_Learning_App.Domain.Entities.Journals", b =>
-                {
-                    b.HasOne("Online_Learning_App.Domain.Entities.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("Online_Learning_App.Domain.Entities.KindnessJournal", b =>
                 {
                     b.HasOne("Online_Learning_App.Domain.Entities.Student", "Student")
                         .WithMany()

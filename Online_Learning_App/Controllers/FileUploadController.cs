@@ -47,18 +47,18 @@ namespace GoogleDriveUploader.Controllers
 
                 string downloadUrl = await _fileUploadService.UploadFileAsync(fileBytes, request.File.FileName);
 
-                // 🔍 Extract Google Drive file ID from download URL
+                // Extract Google Drive file ID from download URL
                 var fileIdMatch = Regex.Match(downloadUrl, @"id=([^&]+)");
                 var fileId = fileIdMatch.Success ? fileIdMatch.Groups[1].Value : null;
 
-                // 🛑 Return only downloadUrl if ID isn't extractable
+                // Return only downloadUrl if ID isn't extractable
                 if (fileId == null)
                     return Ok(new { downloadUrl });
 
-                // ✅ Construct the preview URL
+                // Construct the preview URL
                 string previewUrl = $"https://drive.google.com/file/d/{fileId}/preview";
 
-                // ✅ Return both
+                // Return both
                 return Ok(new
                 {
                     downloadUrl,

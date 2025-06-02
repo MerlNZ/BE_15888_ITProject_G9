@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 //using Application.DTOs;
 //using Application.Interfaces;
@@ -15,6 +14,7 @@ using Online_Learning_APP.Application.DTO;
 using Online_Learning_APP.Application.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 
@@ -37,11 +37,11 @@ namespace Application.Services
 
         //}
         public AuthService(
-    IUserRepository userRepository,
-    SignInManager<ApplicationUser> signInManager,
-    IHttpContextAccessor httpContextAccessor,
-    UserManager<ApplicationUser> userManager,
-    IConfiguration configuration)
+        IUserRepository userRepository,
+        SignInManager<ApplicationUser> signInManager,
+        IHttpContextAccessor httpContextAccessor,
+        UserManager<ApplicationUser> userManager,
+        IConfiguration configuration)
         {
             _userRepository = userRepository;
             _signInManager = signInManager;
@@ -94,11 +94,11 @@ namespace Application.Services
 
             // Create claims
             var claims = new List<Claim>
-    {
-        new Claim(ClaimTypes.Name, user.UserName),
-        new Claim(ClaimTypes.Role, role)
+             {
+            new Claim(ClaimTypes.Name, user.UserName),
+            new Claim(ClaimTypes.Role, role)
 
-    };
+             };
 
             var securityKey = new SymmetricSecurityKey(key);
             // Create token descriptor

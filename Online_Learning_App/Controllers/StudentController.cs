@@ -64,14 +64,7 @@ namespace Online_Learning_App_Presentation.Controllers
 
             if (student == null) return NotFound("Student not found.");
 
-            //var activities = await _context.Activities
-            //    .Where(a => a.ClassGroupId == student.ClassGroupId)
-            //    .ToListAsync();
-
-           // var activitiesclassGrooupSubject = await _context.ClassGroupSubject
-           //.Where(a => a.ClassGroupId == student.ClassGroupId).Select(a=> a.ClassGroupSubjectId).FirstOrDefaultAsync();
-
-            var activitiesStudent = await _context.ClassGroupSubjectStudentActivity.Include(a=>a.Activity)
+             var activitiesStudent = await _context.ClassGroupSubjectStudentActivity.Include(a=>a.Activity)
                 .Where(a => a.StudentId == student.Id)
                 .ToListAsync();
 
@@ -108,17 +101,6 @@ namespace Online_Learning_App_Presentation.Controllers
         [HttpGet("/pendingsubmission")]
         public async Task<IActionResult> PendingSubmissions()
         {
-            //var student = await _context.Students
-            //    .FirstOrDefaultAsync(s => s.UserName == username);
-
-            //if (student == null) return NotFound("Student not found.");
-
-            //var activities = await _context.Activities
-            //    .Where(a => a.ClassGroupId == student.ClassGroupId)
-            //    .ToListAsync();
-
-            // var activitiesclassGrooupSubject = await _context.ClassGroupSubject
-            //.Where(a => a.ClassGroupId == student.ClassGroupId).Select(a=> a.ClassGroupSubjectId).FirstOrDefaultAsync();
 
             var activitiesStudent = await _context.ClassGroupSubjectStudentActivity.Include(a => a.Activity)
                // .Where(a => a.StudentId == student.Id)
@@ -196,41 +178,6 @@ namespace Online_Learning_App_Presentation.Controllers
 
             return Ok(student);
         }
-
-        //[HttpGet("student/{studentId}/submission-summary")]
-        //public async Task<ActionResult<StudentSubmissionSummaryDto>> GetStudentSubmissionSummary(Guid studentId)
-        //{
-        //    var student = await _context.Students
-        //        .FirstOrDefaultAsync(s => s.Id == studentId);
-
-        //    if (student == null)
-        //        return NotFound("Student not found");
-
-        //    // Get all activities in the student's class group
-        //    var activityIds = await _context.Activities
-        //        .Where(a => a.ClassGroupId == student.ClassGroupId)
-        //        .Select(a => a.ActivityId)
-        //        .ToListAsync();
-
-        //    var totalActivities = activityIds.Count;
-
-        //    // Get student's submissions related to those activities
-        //    var submissions = await _context.Submissions
-        //        .Where(s => s.StudentId == studentId && activityIds.Contains(s.ActivityId))
-        //        .ToListAsync();
-
-        //    int totalSubmissions = submissions.Count;
-        //    int graded = submissions.Count(s => s.Grade > 0);
-        //    int ungraded = submissions.Count(s => s.Grade == null || s.Grade <= 0);
-
-        //    return Ok(new StudentSubmissionSummaryDto
-        //    {
-        //        TotalSubmissions = totalSubmissions,
-        //        UngradedSubmissions = ungraded,
-        //        GradedSubmissions = graded,
-        //        TotalActivities = totalActivities
-        //    });
-        //}
 
         [HttpGet("student/summary/{username}")]
         public async Task<IActionResult> GetStudentSubmissionSummary(string username)

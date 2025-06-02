@@ -52,7 +52,7 @@ namespace AuthenticationApp.Application.Services
             var result = await _userManager.CreateAsync(user, password);
             if (!result.Succeeded)
             {
-                //   return "User creation failed!";
+                //return "User creation failed!";
                 return string.Join("; ", result.Errors.Select(e => e.Description));
             }
 

@@ -572,32 +572,32 @@ namespace Online_Learning_App.Infrastructure.Migrations
                     b.ToTable("Grade");
                 });
 
-            modelBuilder.Entity("Online_Learning_App.Domain.Entities.KindnessJournal", b =>
-                {
-                    b.Property<Guid>("JournalId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+            //modelBuilder.Entity("Online_Learning_App.Domain.Entities.KindnessJournal", b =>
+            //    {
+            //        b.Property<Guid>("JournalId")
+            //            .ValueGeneratedOnAdd()
+            //            .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Emoji")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            //        b.Property<string>("Emoji")
+            //            .IsRequired()
+            //            .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EntryDate")
-                        .HasColumnType("datetime2");
+            //        b.Property<DateTime>("EntryDate")
+            //            .HasColumnType("datetime2");
 
-                    b.Property<string>("EntryText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            //        b.Property<string>("EntryText")
+            //            .IsRequired()
+            //            .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
+            //        b.Property<Guid>("StudentId")
+            //            .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("JournalId");
+            //        b.HasKey("JournalId");
 
-                    b.HasIndex("StudentId");
+            //        b.HasIndex("StudentId");
 
-                    b.ToTable("KindnessJournals");
-                });
+            //        b.ToTable("KindnessJournals");
+            //    });
 
             modelBuilder.Entity("Online_Learning_App.Domain.Entities.PrintableResource", b =>
                 {
@@ -1113,16 +1113,16 @@ namespace Online_Learning_App.Infrastructure.Migrations
                     b.Navigation("Subject");
                 });
 
-            modelBuilder.Entity("Online_Learning_App.Domain.Entities.KindnessJournal", b =>
-                {
-                    b.HasOne("Online_Learning_App.Domain.Entities.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            //modelBuilder.Entity("Online_Learning_App.Domain.Entities.KindnessJournal", b =>
+            //    {
+            //        b.HasOne("Online_Learning_App.Domain.Entities.Student", "Student")
+            //            .WithMany()
+            //            .HasForeignKey("StudentId")
+            //            .OnDelete(DeleteBehavior.Cascade)
+            //            .IsRequired();
 
-                    b.Navigation("Student");
-                });
+            //        b.Navigation("Student");
+            //    });
 
             modelBuilder.Entity("Online_Learning_App.Domain.Entities.PrintableResource", b =>
                 {
